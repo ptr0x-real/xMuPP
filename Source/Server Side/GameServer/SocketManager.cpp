@@ -12,11 +12,13 @@
 #include "Protocol.h"
 #include "SerialCheck.h"
 #include "User.h"
+#include "Util.h"
 
 CSocketManager gSocketManager;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
+
 
 CSocketManager::CSocketManager() // OK
 {
@@ -437,6 +439,15 @@ bool CSocketManager::DataSend(int index,BYTE* lpMsg,int size) // OK
 	static BYTE send[MAX_MAIN_PACKET_SIZE];
 
 	memcpy(send,lpMsg,size);
+
+	if (lpMsg[0] == 0xC1 || lpMsg[0] == 0xC3)
+	{
+		LogAdd(LOG_RED, "Packet sent. Type: 0x%X. Head/SHead: 0x%X/0x%X. Size: %d", lpMsg[0], lpMsg[2], lpMsg[3], size);
+	}
+	else
+	{
+		LogAdd(LOG_RED, "Packet sent. Type: 0x%X. Head/SHead: 0x%X/0x%X. Size: %d", lpMsg[0], lpMsg[3], lpMsg[4], size);
+	}
 
 	if(lpMsg[0] == 0xC3 || lpMsg[0] == 0xC4)
 	{
