@@ -369,8 +369,8 @@ struct PMSG_SKILL_LIST_SEND
 struct PMSG_SKILL_LIST
 {
 	#pragma pack(1)
-	BYTE slot;
-	WORD skill;
+	char slot;	// 0
+	BYTE skill;	// 5
 	BYTE level;
 	#pragma pack()
 };

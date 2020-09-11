@@ -6312,7 +6312,7 @@ void CSkillManager::GCSkillAddSend(int aIndex,BYTE slot,int skill,BYTE level,BYT
 
 	info.skill = skill;
 
-	info.level = (level << 3) | ((skill/255) & 7);
+	info.level = (level << 3) | (((unsigned char)skill) & 7);
 
 	memcpy(&send[size],&info,sizeof(info));
 	size += sizeof(info);
@@ -6344,7 +6344,7 @@ void CSkillManager::GCSkillDelSend(int aIndex,BYTE slot,int skill,BYTE level,BYT
 
 	info.skill = skill;
 
-	info.level = (level << 3) | ((skill/255) & 7);
+	info.level = (level << 3) | (((unsigned char)skill) & 7);
 
 	memcpy(&send[size],&info,sizeof(info));
 	size += sizeof(info);
