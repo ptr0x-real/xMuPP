@@ -13,3 +13,15 @@ GameServerCS/LOG/
 
 JoinServer/LOG/
 JoinServer/LOG_ACCOUNT/
+
+## Server binary files
+ConnectServer/ConnectServer*.*
+!ConnectServer/ConnectServer.ini
+
+DataServer/DataServer*.*
+!DataServer/DataServer.ini
+
+GameServer/GameServer*.*
+
+JoinServer/JoinServer*.*
+!JoinServer/JoinServer.ini
