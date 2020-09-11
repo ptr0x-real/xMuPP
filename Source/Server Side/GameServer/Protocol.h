@@ -498,9 +498,8 @@ struct PMSG_LIFE_SEND
 {
 	PBMSG_HEAD header; // C1:26
 	BYTE type;
-	BYTE life[2];
-	BYTE flag;
-	BYTE shield[2];
+	int refill_01;
+	int refill_02;
 	#if(GAMESERVER_EXTRA==1)
 	DWORD ViewHP;
 	DWORD ViewSD;
@@ -511,8 +510,8 @@ struct PMSG_MANA_SEND
 {
 	PBMSG_HEAD header; // C1:27
 	BYTE type;
-	BYTE mana[2];
-	BYTE bp[2];
+	int refill_01;
+	int refill_02;
 	#if(GAMESERVER_EXTRA==1)
 	DWORD ViewMP;
 	DWORD ViewBP;
@@ -784,10 +783,10 @@ struct PMSG_CHARACTER_DELETE_SEND
 	BYTE result;
 };
 
+#pragma pack(push, 1)
 struct PMSG_CHARACTER_INFO_SEND
 {
 	PSBMSG_HEAD header;
-	//BYTE subcode;
 	BYTE X;
 	BYTE Y;
 	BYTE Map;
@@ -816,6 +815,7 @@ struct PMSG_CHARACTER_INFO_SEND
 	WORD FruitSubPoint;
 	WORD MaxFruitSubPoint;
 };
+#pragma pack(pop)
 
 struct PMSG_CHARACTER_REGEN_SEND
 {
@@ -934,14 +934,12 @@ struct PMSG_OPTION_DATA_SEND
 {
 	#pragma pack(1)
 	PSBMSG_HEAD header; // C1:F3:30
-	BYTE SkillKey[20];
-	BYTE GameOption;
-	BYTE QKey;
-	BYTE WKey;
-	BYTE EKey;
-	BYTE ChatWindow;
-	BYTE RKey;
-	DWORD QWERLevel;
+	BYTE SKillKey[10];	// 4
+	BYTE GameOption;	// E
+	BYTE QkeyDefine;	// F
+	BYTE WkeyDefine;	// 10
+	BYTE EkeyDefine;	// 11
+	BYTE ChatWindow;	// 12
 	#pragma pack()
 };
 

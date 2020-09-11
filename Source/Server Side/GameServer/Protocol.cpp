@@ -2482,13 +2482,9 @@ void GCLifeSend(int aIndex,BYTE type,int life,int shield) // OK
 
 	pMsg.type = type;
 
-	pMsg.life[0] = SET_NUMBERHB(GET_MAX_WORD_VALUE(life));
-	pMsg.life[1] = SET_NUMBERLB(GET_MAX_WORD_VALUE(life));
+	pMsg.refill_01 = life;
 
-	pMsg.flag = 0;
-
-	pMsg.shield[0] = SET_NUMBERHB(GET_MAX_WORD_VALUE(shield));
-	pMsg.shield[1] = SET_NUMBERLB(GET_MAX_WORD_VALUE(shield));
+	pMsg.refill_02 = shield;
 
 	#if(GAMESERVER_EXTRA==1)
 	pMsg.ViewHP = life;
@@ -2506,11 +2502,9 @@ void GCManaSend(int aIndex,BYTE type,int mana,int bp) // OK
 
 	pMsg.type = type;
 
-	pMsg.mana[0] = SET_NUMBERHB(GET_MAX_WORD_VALUE(mana));
-	pMsg.mana[1] = SET_NUMBERLB(GET_MAX_WORD_VALUE(mana));
+	pMsg.refill_01 = mana;
 
-	pMsg.bp[0] = SET_NUMBERHB(GET_MAX_WORD_VALUE(bp));
-	pMsg.bp[1] = SET_NUMBERLB(GET_MAX_WORD_VALUE(bp));
+	pMsg.refill_02 = bp;
 
 	#if(GAMESERVER_EXTRA==1)
 	pMsg.ViewMP = mana;
