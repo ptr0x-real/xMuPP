@@ -1,0 +1,6 @@
+## Compiler and linker files
+
+Util/cryptopp/Debug/*
+Util/cryptopp/Release/*
+!Util/cryptopp/Debug/cryptlib.lib
+!Util/cryptopp/Release/cryptlib.lib

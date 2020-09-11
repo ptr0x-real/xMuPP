@@ -1,0 +1,6 @@
+## Ignore output folders.
+
+ConnectServer/Build/
+DataServer/Build/
+GameServer/Build/
+JoinServer/Build/
