@@ -1,0 +1,15 @@
+## Server log folders
+ConnectServer/LOG/
+
+DataServer/LOG/
+
+GameServer/CONNECT_LOG/
+GameServer/HACK_LOG/
+GameServer/LOG/
+
+GameServerCS/CONNECT_LOG/
+GameServerCS/HACK_LOG/
+GameServerCS/LOG/
+
+JoinServer/LOG/
+JoinServer/LOG_ACCOUNT/

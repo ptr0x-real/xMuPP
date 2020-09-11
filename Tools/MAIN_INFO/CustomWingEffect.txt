@@ -1,0 +1,2 @@
+//ItemIndex   EffectIndex   EffectValue   EffectLevel   ColorR   ColorG   ColorB   ColorSize   ColorMain   ColorSide
+end

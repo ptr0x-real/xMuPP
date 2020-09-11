@@ -1,0 +1,26 @@
+0
+//Index   Message
+0         "Level: %d | Resets: %d"
+1         "Reconnecting..."
+2         "Logging in..."
+3         "Waiting character list..."
+4         "Waiting character info..."
+end
+
+1
+//Index   Message
+0         "Nível: %d | Resets: %d"
+1         "Reconectando..."
+2         "Entrando..."
+3         "Listando personagens..."
+4         "Entrando no personagem..."
+end
+
+2
+//Index   Message
+0         "Nivel: %d | Resets: %d"
+1         "Reconectando..."
+2         "Iniciando sesión..."
+3         "Listado caracteres..."
+4         "Entrando en el carácter..."
+end
