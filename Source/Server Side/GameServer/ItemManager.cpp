@@ -1637,9 +1637,11 @@ void CItemManager::ItemByteConvert(BYTE* lpMsg,CItem item) // OK
 	lpMsg[5] = 0;
 	lpMsg[5] |= (item.m_Index & GET_ITEM(15,0)) >> 5;
 	lpMsg[5] |= ((item.m_ItemOptionEx & 128) >> 4);
-	lpMsg[5] |= ((item.m_IsPeriodicItem & 1) << 1);
-	lpMsg[5] |= ((item.m_IsExpiredItem & 1) << 2);
+	// TODO: check these two lines on S2.
+	//lpMsg[5] |= ((item.m_IsPeriodicItem & 1) << 1);
+	//lpMsg[5] |= ((item.m_IsExpiredItem & 1) << 2);
 
+	lpMsg[6] = item.m_JewelOfHarmonyOption;
 }
 
 void CItemManager::DBItemByteConvert(BYTE* lpMsg,CItem* lpItem) // OK
