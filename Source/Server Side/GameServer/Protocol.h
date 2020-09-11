@@ -784,7 +784,6 @@ struct PMSG_CHARACTER_DELETE_SEND
 	BYTE result;
 };
 
-#if (GAMESERVER_UPDATE == 200)
 struct PMSG_CHARACTER_INFO_SEND
 {
 	PSBMSG_HEAD header;
@@ -817,59 +816,6 @@ struct PMSG_CHARACTER_INFO_SEND
 	WORD FruitSubPoint;
 	WORD MaxFruitSubPoint;
 };
-#else
-struct PMSG_CHARACTER_INFO_SEND
-{
-	PSBMSG_HEAD header; // C3:F3:03
-	BYTE X;
-	BYTE Y;
-	BYTE Map;
-	BYTE Dir;
-	BYTE Experience[8];
-	BYTE NextExperience[8];
-	WORD LevelUpPoint;
-	WORD Strength;
-	WORD Dexterity;
-	WORD Vitality;
-	WORD Energy;
-	WORD Life;
-	WORD MaxLife;
-	WORD Mana;
-	WORD MaxMana;
-	WORD Shield;
-	WORD MaxShield;
-	WORD BP;
-	WORD MaxBP;
-	DWORD Money;
-	BYTE PKLevel;
-	BYTE CtlCode;
-	WORD FruitAddPoint;
-	WORD MaxFruitAddPoint;
-	WORD Leadership;
-	WORD FruitSubPoint;
-	WORD MaxFruitSubPoint;
-	#if(GAMESERVER_UPDATE>=602)
-	BYTE ExtInventory;
-	#endif
-	#if(GAMESERVER_EXTRA==1)
-	DWORD ViewReset;
-	DWORD ViewPoint;
-	DWORD ViewCurHP;
-	DWORD ViewMaxHP;
-	DWORD ViewCurMP;
-	DWORD ViewMaxMP;
-	DWORD ViewCurBP;
-	DWORD ViewMaxBP;
-	DWORD ViewCurSD;
-	DWORD ViewMaxSD;
-	DWORD ViewStrength;
-	DWORD ViewDexterity;
-	DWORD ViewVitality;
-	DWORD ViewEnergy;
-	DWORD ViewLeadership;
-	#endif
-};
-#endif // (GAMESERVER_UPDATE == 200)
 
 struct PMSG_CHARACTER_REGEN_SEND
 {

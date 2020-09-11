@@ -1582,15 +1582,6 @@ void CViewport::GCViewportSimplePlayerSend(LPOBJ lpObj) // OK
 		return;
 	}
 
-	#if(GAMESERVER_UPDATE>=402)
-
-	if(gDuel.GetDuelArenaBySpectator(lpObj->Index) != 0)
-	{
-		return;
-	}
-
-	#endif
-
 	if((lpObj->Authority & 32) != 0 && gEffectManager.CheckEffect(lpObj,EFFECT_INVISIBILITY) != 0)
 	{
 		return;
@@ -1631,31 +1622,6 @@ void CViewport::GCViewportSimplePlayerSend(LPOBJ lpObj) // OK
 
 	info.DirAndPkLevel = (lpObj->Dir*16) | (((gCustomArena.CheckPlayerJoined(lpObj,lpObj)==0)?lpObj->PKLevel:6) & 0x0F);
 
-	#if(GAMESERVER_UPDATE>=701)
-
-	info.attribute = lpObj->ElementalAttribute;
-
-	#if(GAMESERVER_UPDATE>=803)
-
-	info.MuunItem[0] = SET_NUMBERHB(lpObj->MuunInventory[0].m_Index);
-	info.MuunItem[1] = SET_NUMBERLB(lpObj->MuunInventory[0].m_Index);
-
-	#endif
-
-	info.level[0] = SET_NUMBERHB(lpObj->Level);
-	info.level[1] = SET_NUMBERLB(lpObj->Level);
-
-	info.MaxHP[0] = SET_NUMBERHB(SET_NUMBERHW((lpObj->MaxLife+lpObj->AddLife)));
-	info.MaxHP[1] = SET_NUMBERHB(SET_NUMBERLW((lpObj->MaxLife+lpObj->AddLife)));
-	info.MaxHP[2] = SET_NUMBERLB(SET_NUMBERHW((lpObj->MaxLife+lpObj->AddLife)));
-	info.MaxHP[3] = SET_NUMBERLB(SET_NUMBERLW((lpObj->MaxLife+lpObj->AddLife)));
-
-	info.CurHP[0] = SET_NUMBERHB(SET_NUMBERHW((lpObj->Life)));
-	info.CurHP[1] = SET_NUMBERHB(SET_NUMBERLW((lpObj->Life)));
-	info.CurHP[2] = SET_NUMBERLB(SET_NUMBERHW((lpObj->Life)));
-	info.CurHP[3] = SET_NUMBERLB(SET_NUMBERLW((lpObj->Life)));
-
-	#endif
 
 	int InfoSize = sizeof(info);
 

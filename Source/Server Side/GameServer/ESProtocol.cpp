@@ -595,18 +595,6 @@ void DGGuildMemberInfo(SDHP_GUILDMEMBER_INFO * lpMsg)
 							pMsg.btGuildType = G_TYPE_NONE;
 						}
 
-						//Season 4.5 Addon start
-                        if(gCastleSiegeSync.CheckCastleOwnerMember(gObj[n].Index) == 1 ||
-                           gCastleSiegeSync.CheckCastleOwnerUnionMember(gObj[n].Index) == 1)
-                        {
-                            pMsg.btOwnerStatus = 1;
-                        }
-                        else
-                        {
-                            pMsg.btOwnerStatus = 0;
-                        }
-                        //Season 4.5 Addon end
-
 						memcpy(&GuildInfoBuf[GuildInfoOfs], &pMsg, sizeof(PMSG_SIMPLE_GUILDVIEWPORT));
 						GuildInfoOfs += sizeof(PMSG_SIMPLE_GUILDVIEWPORT);
 

@@ -371,7 +371,6 @@ struct PMSG_SIMPLE_GUILDVIEWPORT
 	BYTE btGuildRelationShip;	// 6
 	BYTE NumberH;	// 7
 	BYTE NumberL;	// 8
-	BYTE btOwnerStatus; //9 season4 add-on
 };
 
 void GCGuildWarDeclare(int aIndex, LPSTR _guildname);

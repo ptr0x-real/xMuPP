@@ -179,17 +179,6 @@ bool CConnection::DataRecv() // OK
 	return 1;
 }
 
-void LogSentPacket(unsigned char* buffr, int size)
-{
-	int head = buffr[0];
-
-	if (head != 0xC1 ||
-		(head == 0xC1 && size != 8))
-	{
-		LogAdd(LOG_RED, "Packet sent. Head 0x%X. Subcode: 0x%X. Size: %d", head, buffr[3], size);
-	}
-}
-
 bool CConnection::DataSend(BYTE* lpMsg,int size) // OK
 {
 	this->m_critical.lock();
@@ -254,14 +243,10 @@ bool CConnection::DataSend(BYTE* lpMsg,int size) // OK
 		}
 		else
 		{
-			LogSentPacket(lpMsg, size);
-
 			count += result;
 			size -= result;
 		}
 	}
-
-	//LogSentPacket(lpMsg, size);
 
 	this->m_critical.unlock();
 	return 1;

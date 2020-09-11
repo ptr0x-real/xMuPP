@@ -1053,51 +1053,6 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	pMsg.Map = lpObj->Map;
 	pMsg.Dir = lpObj->Dir;
 
-	if(gMasterSkillTree.CheckMasterLevel(lpObj) == 0)
-	{
-		pMsg.Experience[0] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->Experience)));
-		pMsg.Experience[1] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->Experience)));
-		pMsg.Experience[2] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->Experience)));
-		pMsg.Experience[3] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->Experience)));
-		pMsg.Experience[4] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->Experience)));
-		pMsg.Experience[5] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->Experience)));
-		pMsg.Experience[6] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->Experience)));
-		pMsg.Experience[7] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->Experience)));
-	}
-	else
-	{
-		pMsg.Experience[0] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->MasterExperience)));
-		pMsg.Experience[1] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->MasterExperience)));
-		pMsg.Experience[2] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->MasterExperience)));
-		pMsg.Experience[3] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->MasterExperience)));
-		pMsg.Experience[4] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->MasterExperience)));
-		pMsg.Experience[5] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->MasterExperience)));
-		pMsg.Experience[6] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->MasterExperience)));
-		pMsg.Experience[7] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->MasterExperience)));
-	}
-
-	if(gMasterSkillTree.CheckMasterLevel(lpObj) == 0)
-	{
-		pMsg.NextExperience[0] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->NextExperience)));
-		pMsg.NextExperience[1] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->NextExperience)));
-		pMsg.NextExperience[2] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->NextExperience)));
-		pMsg.NextExperience[3] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->NextExperience)));
-		pMsg.NextExperience[4] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->NextExperience)));
-		pMsg.NextExperience[5] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->NextExperience)));
-		pMsg.NextExperience[6] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->NextExperience)));
-		pMsg.NextExperience[7] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->NextExperience)));
-	}
-	else
-	{
-		pMsg.NextExperience[0] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[1] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERHDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[2] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[3] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERHDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[4] = SET_NUMBERHB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[5] = SET_NUMBERLB(SET_NUMBERHW(SET_NUMBERLDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[6] = SET_NUMBERHB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->MasterNextExperience)));
-		pMsg.NextExperience[7] = SET_NUMBERLB(SET_NUMBERLW(SET_NUMBERLDW(lpObj->MasterNextExperience)));
-	}
 
 	pMsg.LevelUpPoint = lpObj->LevelUpPoint;
 	pMsg.Strength = GET_MAX_WORD_VALUE(lpObj->Strength);
@@ -1120,26 +1075,8 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	pMsg.Leadership = GET_MAX_WORD_VALUE(lpObj->Leadership);
 	pMsg.FruitSubPoint = lpObj->FruitSubPoint;
 	pMsg.MaxFruitSubPoint = gFruit.GetMaxFruitPoint(lpObj);
-	#if(GAMESERVER_UPDATE>=602)
-	pMsg.ExtInventory = lpObj->ExtInventory;
-	#endif
 
 	#if(GAMESERVER_EXTRA==1)
-	pMsg.ViewReset = (DWORD)(lpObj->Reset);
-	pMsg.ViewPoint = (DWORD)(lpObj->LevelUpPoint);
-	pMsg.ViewCurHP = (DWORD)(lpObj->Life);
-	pMsg.ViewMaxHP = (DWORD)(lpObj->MaxLife+lpObj->AddLife);
-	pMsg.ViewCurMP = (DWORD)(lpObj->Mana);
-	pMsg.ViewMaxMP = (DWORD)(lpObj->MaxMana+lpObj->AddMana);
-	pMsg.ViewCurBP = (DWORD)(lpObj->BP);
-	pMsg.ViewMaxBP = (DWORD)(lpObj->MaxBP+lpObj->AddBP);
-	pMsg.ViewCurSD = (DWORD)(lpObj->Shield);
-	pMsg.ViewMaxSD = (DWORD)(lpObj->MaxShield+lpObj->AddShield);
-	pMsg.ViewStrength = lpObj->Strength;
-	pMsg.ViewDexterity = lpObj->Dexterity;
-	pMsg.ViewVitality = lpObj->Vitality;
-	pMsg.ViewEnergy = lpObj->Energy;
-	pMsg.ViewLeadership = lpObj->Leadership;
 	#endif
 
 	DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
@@ -1483,16 +1420,6 @@ void DGOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg) // OK
 	}
 
 	LPOBJ lpObj = &gObj[lpMsg->index];
-
-	#if(GAMESERVER_UPDATE>=701)
-
-	lpObj->ChangeSkin = lpMsg->ChangeSkin;
-
-	gObjViewportListProtocolCreate(lpObj);
-
-	gObjectManager.CharacterUpdateMapEffect(lpObj);
-
-	#endif
 
 	PMSG_OPTION_DATA_SEND pMsg;
 

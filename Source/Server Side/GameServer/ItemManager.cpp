@@ -1640,16 +1640,6 @@ void CItemManager::ItemByteConvert(BYTE* lpMsg,CItem item) // OK
 	lpMsg[5] |= ((item.m_IsPeriodicItem & 1) << 1);
 	lpMsg[5] |= ((item.m_IsExpiredItem & 1) << 2);
 
-	if(item.IsSocketItem() == 0 && item.IsPentagramItem() == 0 && item.IsPentagramJewel() == 0 && item.IsPentagramMithril() == 0 && item.IsMuunItem() == 0)
-	{
-		lpMsg[6] = item.m_JewelOfHarmonyOption;
-	}
-	else
-	{
-		lpMsg[6] = item.m_SocketOptionBonus;
-	}
-
-	memcpy(&lpMsg[7],item.m_SocketOption,MAX_SOCKET_OPTION);
 }
 
 void CItemManager::DBItemByteConvert(BYTE* lpMsg,CItem* lpItem) // OK

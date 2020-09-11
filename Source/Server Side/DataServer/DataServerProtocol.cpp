@@ -1161,25 +1161,7 @@ void GDCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg,int index) // OK
 
 		pMsg.FruitSubPoint = (WORD)gQueryManager.GetAsInteger("FruitSubPoint");
 
-		#if(DATASERVER_UPDATE>=602)
-
-		pMsg.ExtInventory = (BYTE)gQueryManager.GetAsInteger("ExtInventory");
-
-		#endif
-
 		gQueryManager.Close();
-
-		#if(DATASERVER_UPDATE>=602)
-
-		gQueryManager.ExecQuery("SELECT ExtWarehouse FROM AccountCharacter WHERE Id='%s'",lpMsg->account);
-
-		gQueryManager.Fetch();
-
-		pMsg.ExtWarehouse = (BYTE)gQueryManager.GetAsInteger("ExtWarehouse");
-
-		gQueryManager.Close();
-
-		#endif
 
 		gQueryManager.ExecQuery("EXEC WZ_GetResetInfo '%s','%s'",lpMsg->account,lpMsg->name);
 
@@ -1196,20 +1178,6 @@ void GDCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg,int index) // OK
 		pMsg.MasterReset = gQueryManager.GetAsInteger("MasterReset");
 
 		gQueryManager.Close();
-
-		#if(DATASERVER_UPDATE>=801)
-
-		GUILD_MATCHING_INFO GuildMatchingInfo;
-
-		GUILD_MATCHING_JOIN_INFO GuildMatchingJoinInfo;
-
-		GUILD_INFO* lpGuildInfo = gGuildManager.GetMemberGuildInfo(lpMsg->name);
-
-		pMsg.UseGuildMatching = ((lpGuildInfo==0)?0:gGuildMatching.GetGuildMatchingInfo(&GuildMatchingInfo,lpGuildInfo->szName));
-
-		pMsg.UseGuildMatchingJoin = ((lpGuildInfo!=0)?0:gGuildMatching.GetGuildMatchingJoinInfo(&GuildMatchingJoinInfo,lpMsg->name));
-
-		#endif
 
 		gQueryManager.ExecQuery("UPDATE AccountCharacter SET GameIDC='%s' WHERE Id='%s'",lpMsg->name,lpMsg->account);
 
@@ -1318,9 +1286,6 @@ void GDOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg,int index) // OK
 		pMsg.ChatWindow = 0xFF;
 		pMsg.RKey = 0xFF;
 		pMsg.QWERLevel = 0xFFFFFFFF;
-		#if(DATASERVER_UPDATE>=701)
-		pMsg.ChangeSkin = 0;
-		#endif
 	}
 	else
 	{
@@ -1333,9 +1298,6 @@ void GDOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg,int index) // OK
 		pMsg.ChatWindow = (BYTE)gQueryManager.GetAsInteger("ChatWindow");
 		pMsg.RKey = (BYTE)gQueryManager.GetAsInteger("Rkey");
 		pMsg.QWERLevel = gQueryManager.GetAsInteger("QWERLevel");
-		#if(DATASERVER_UPDATE>=701)
-		pMsg.ChangeSkin = (BYTE)gQueryManager.GetAsInteger("ChangeSkin");
-		#endif
 
 		gQueryManager.Close();
 	}

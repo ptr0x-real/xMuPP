@@ -4047,12 +4047,6 @@ void CObjectManager::CharacterCalcAttribute(int aIndex) // OK
 	GCNewCharacterCalcSend(lpObj);
 
 	#endif
-
-	#if(GAMESERVER_UPDATE>=701)
-
-	GCCharacterAttackSpeedSend(lpObj);
-
-	#endif
 }
 
 bool CObjectManager::CharacterInfoSet(BYTE* aRecv,int aIndex) // OK
