@@ -1425,21 +1425,17 @@ void DGOptionDataRecv(SDHP_OPTION_DATA_RECV* lpMsg) // OK
 
 	pMsg.header.set(0xF3,0x30,sizeof(pMsg));
 
-	memcpy(pMsg.SkillKey,lpMsg->SkillKey,sizeof(pMsg.SkillKey));
+	memcpy(pMsg.SKillKey,lpMsg->SkillKey,sizeof(pMsg.SKillKey));
 
 	pMsg.GameOption = lpMsg->GameOption;
 
-	pMsg.QKey = lpMsg->QKey;
+	pMsg.QkeyDefine = lpMsg->QKey;
 
-	pMsg.WKey = lpMsg->WKey;
+	pMsg.WkeyDefine = lpMsg->WKey;
 
-	pMsg.EKey = lpMsg->EKey;
+	pMsg.EkeyDefine = lpMsg->EKey;
 
 	pMsg.ChatWindow = lpMsg->ChatWindow;
-
-	pMsg.RKey = lpMsg->RKey;
-
-	pMsg.QWERLevel = lpMsg->QWERLevel;
 
 	DataSend(lpMsg->index,(BYTE*)&pMsg,pMsg.header.size);
 }
