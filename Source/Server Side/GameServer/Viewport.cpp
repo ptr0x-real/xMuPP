@@ -1597,35 +1597,36 @@ void CViewport::GCViewportSimplePlayerSend(LPOBJ lpObj) // OK
 
 	pMsg.count = 0;
 
-	PMSG_VIEWPORT_PLAYER info;
+	//PMSG_VIEWPORT_PLAYER info;
+	PMSG_VIEWPORTCREATE_CHANGE info;
 
-	info.index[0] = SET_NUMBERHB(lpObj->Index);
-	info.index[1] = SET_NUMBERLB(lpObj->Index);
+	info.NumberH = SET_NUMBERHB(lpObj->Index);
+	info.NumberL = SET_NUMBERLB(lpObj->Index);
 	
 	if(lpObj->State == OBJECT_CREATE && lpObj->Teleport == 0)
 	{
-		info.index[0] |= 0x80;
+		info.NumberH |= 0x80;
 	}
 
-	info.x = (BYTE)lpObj->X;
-	info.y = (BYTE)lpObj->Y;
+	lpObj->CharSet[0] &= 0xF0;
+	lpObj->CharSet[0] |= lpObj->ViewState & 0xF;
 
-	lpObj->CharSet[0] &= 0xF8;
-	lpObj->CharSet[0] |= lpObj->ViewState & 7;
+	memcpy(info.Id,lpObj->Name,sizeof(info.Id));
 
-	memcpy(info.CharSet,lpObj->CharSet,sizeof(info.CharSet));
+	info.X = (BYTE)lpObj->X;
+	info.Y = (BYTE)lpObj->Y;
+	info.TX = (BYTE)lpObj->TX;
+	info.TY = (BYTE)lpObj->TY;
 
-	memcpy(info.name,lpObj->Name,sizeof(info.name));
-
-	info.tx = (BYTE)lpObj->TX;
-	info.ty = (BYTE)lpObj->TY;
+	info.ViewSkillState = 0; // TODO: 
 
 	info.DirAndPkLevel = (lpObj->Dir*16) | (((gCustomArena.CheckPlayerJoined(lpObj,lpObj)==0)?lpObj->PKLevel:6) & 0x0F);
 
+	memcpy(info.CharSet, lpObj->CharSet, sizeof(info.CharSet));
 
 	int InfoSize = sizeof(info);
 
-	info.count = gEffectManager.GenerateEffectList(lpObj,&send[size],&InfoSize);
+	//info.count = gEffectManager.GenerateEffectList(lpObj,&send[size],&InfoSize);
 
 	memcpy(&send[size],&info,sizeof(info));
 	size += InfoSize;

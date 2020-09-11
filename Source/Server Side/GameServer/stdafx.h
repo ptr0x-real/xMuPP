@@ -11,7 +11,7 @@
 #endif
 
 #ifndef GAMESERVER_EXTRA
-#define GAMESERVER_EXTRA 1
+#define GAMESERVER_EXTRA 0
 #endif
 
 #ifndef GAMESERVER_UPDATE

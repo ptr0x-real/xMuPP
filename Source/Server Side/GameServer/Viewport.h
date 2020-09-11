@@ -64,6 +64,20 @@ struct PMSG_VIEWPORT_PLAYER
 	BYTE count;
 };
 
+struct PMSG_VIEWPORTCREATE_CHANGE
+{
+	BYTE NumberH;
+	BYTE NumberL;
+	BYTE X;
+	BYTE Y;
+	BYTE CharSet[18];
+	unsigned long ViewSkillState;
+	char Id[10];
+	BYTE TX;
+	BYTE TY;
+	BYTE DirAndPkLevel;
+};
+
 struct PMSG_VIEWPORT_MONSTER
 {
 	BYTE index[2];
