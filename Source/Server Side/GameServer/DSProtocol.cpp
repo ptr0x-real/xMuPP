@@ -1053,22 +1053,24 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	pMsg.Map = lpObj->Map;
 	pMsg.Dir = lpObj->Dir;
 
+	pMsg.Experience = lpObj->Experience;
+	pMsg.NextExperience = lpObj->NextExperience;
 
 	pMsg.LevelUpPoint = lpObj->LevelUpPoint;
-	pMsg.Strength = GET_MAX_WORD_VALUE(lpObj->Strength);
-	pMsg.Dexterity = GET_MAX_WORD_VALUE(lpObj->Dexterity);
-	pMsg.Vitality = GET_MAX_WORD_VALUE(lpObj->Vitality);
+	pMsg.Str = GET_MAX_WORD_VALUE(lpObj->Strength);
+	pMsg.Dex = GET_MAX_WORD_VALUE(lpObj->Dexterity);
+	pMsg.Vit = GET_MAX_WORD_VALUE(lpObj->Vitality);
 	pMsg.Energy = GET_MAX_WORD_VALUE(lpObj->Energy);
 	pMsg.Life = GET_MAX_WORD_VALUE(lpObj->Life);
 	pMsg.MaxLife = GET_MAX_WORD_VALUE((lpObj->MaxLife+lpObj->AddLife));
 	pMsg.Mana = GET_MAX_WORD_VALUE(lpObj->Mana);
 	pMsg.MaxMana = GET_MAX_WORD_VALUE((lpObj->MaxMana+lpObj->AddMana));
-	pMsg.Shield = GET_MAX_WORD_VALUE(lpObj->Shield);
-	pMsg.MaxShield = GET_MAX_WORD_VALUE((lpObj->MaxShield+lpObj->AddShield));
+	pMsg.wShield = GET_MAX_WORD_VALUE(lpObj->Shield);
+	pMsg.wMaxShield = GET_MAX_WORD_VALUE((lpObj->MaxShield+lpObj->AddShield));
 	pMsg.BP = GET_MAX_WORD_VALUE(lpObj->BP);
 	pMsg.MaxBP = GET_MAX_WORD_VALUE((lpObj->MaxBP+lpObj->AddBP));
 	pMsg.Money = lpObj->Money;
-	pMsg.PKLevel = lpObj->PKLevel;
+	pMsg.PkLevel = lpObj->PKLevel;
 	pMsg.CtlCode = lpMsg->CtlCode;
 	pMsg.FruitAddPoint = lpObj->FruitAddPoint;
 	pMsg.MaxFruitAddPoint = gFruit.GetMaxFruitPoint(lpObj);
@@ -1077,6 +1079,21 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	pMsg.MaxFruitSubPoint = gFruit.GetMaxFruitPoint(lpObj);
 
 	#if(GAMESERVER_EXTRA==1)
+	//pMsg.ViewReset = (DWORD)(lpObj->Reset);
+	//pMsg.ViewPoint = (DWORD)(lpObj->LevelUpPoint);
+	//pMsg.ViewCurHP = (DWORD)(lpObj->Life);
+	//pMsg.ViewMaxHP = (DWORD)(lpObj->MaxLife+lpObj->AddLife);
+	//pMsg.ViewCurMP = (DWORD)(lpObj->Mana);
+	//pMsg.ViewMaxMP = (DWORD)(lpObj->MaxMana+lpObj->AddMana);
+	//pMsg.ViewCurBP = (DWORD)(lpObj->BP);
+	//pMsg.ViewMaxBP = (DWORD)(lpObj->MaxBP+lpObj->AddBP);
+	//pMsg.ViewCurSD = (DWORD)(lpObj->Shield);
+	//pMsg.ViewMaxSD = (DWORD)(lpObj->MaxShield+lpObj->AddShield);
+	//pMsg.ViewStrength = lpObj->Strength;
+	//pMsg.ViewDexterity = lpObj->Dexterity;
+	//pMsg.ViewVitality = lpObj->Vitality;
+	//pMsg.ViewEnergy = lpObj->Energy;
+	//pMsg.ViewLeadership = lpObj->Leadership;
 	#endif
 
 	DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
