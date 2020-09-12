@@ -29,6 +29,13 @@ extern "C" _declspec(dllexport) void EntryProc() // OK
 		ExitProcess(0);
 	}
 
+	if (AllocConsole())
+	{
+		auto stdout_f = freopen("CONOUT$", "w", stdout);
+		SetConsoleTitle("Debug Console");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+	}
+
 	//SetByte(0x005E5200, 0xEB); // Crack (mu.exe)
 	//SetByte(0x005E551A, 0xEB); // Crack (GameGuard)
 	//SetByte(0x005E5563, 0xE9); // Crack (GameGuard)
