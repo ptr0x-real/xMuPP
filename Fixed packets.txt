@@ -1,0 +1,9 @@
+List of already fixed packets from xTeam base S4 to S2 native protocol:
+
+(Type/	Head/	Subhead	; commentary)
+0xC3/	0xF3/	0x3		; character's base info as HP, mana, attributes, etc.
+0xC1/	0xF3/	0x30	; contains info about player's game options (eg. QWE keys, etc).
+0xC1/	0x26/	-		; character's life and shield.
+0xC1/	0x27/	-		; character's mana and BP.
+0xC1/	0xF3/	0x11	; character's saved skills in skill bar.
+0xC2/	0x12/	-		; player's character viewport. TODO: finish 'ViewSkillState' rules.

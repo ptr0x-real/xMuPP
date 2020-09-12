@@ -29,6 +29,9 @@ extern "C" _declspec(dllexport) void EntryProc() // OK
 		ExitProcess(0);
 	}
 
+	/*
+		Debug purpose only.
+	*/
 	if (AllocConsole())
 	{
 		auto stdout_f = freopen("CONOUT$", "w", stdout);

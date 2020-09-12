@@ -1626,8 +1626,6 @@ void CViewport::GCViewportSimplePlayerSend(LPOBJ lpObj) // OK
 
 	int InfoSize = sizeof(info);
 
-	//info.count = gEffectManager.GenerateEffectList(lpObj,&send[size],&InfoSize);
-
 	memcpy(&send[size],&info,sizeof(info));
 	size += InfoSize;
 

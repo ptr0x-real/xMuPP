@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <stdio.h>
+
 #include "Protocol.h"
 #include "Common.h"
 #include "HealthBar.h"
@@ -9,19 +12,22 @@
 #include "Reconnect.h"
 #include "Util.h"
 
+using namespace std;
+
 BOOL ProtocolCoreEx(BYTE head,BYTE* lpMsg,int size,int key) // OK
 {
-	FILE* fs;
+	int packet_type = lpMsg[0];
+	int packet_subhead = -1;
 
-	fopen_s(&fs, "recv_packets.txt", "at");
-
-	if (fs != NULL)
+	if (packet_type == 0xC1 || packet_type == 0xC3)
 	{
-		fprintf(fs, "Received packet => Head: 0x%X. Subcode: 0x%X. Size: %d. Key: %d\r\n",
-			head, lpMsg[3], size, key);
-
-		fclose(fs);
+		packet_subhead = lpMsg[3];
 	}
+	else if(packet_type == 0xC2 || packet_type == 0xC4)
+	{
+		packet_subhead = lpMsg[4];
+	}
+	printf("Received (%d)b. Type/Head/Sub: 0x%X/0x%X/0x%X.\n", size, packet_type, head, packet_subhead);
 
 	return ProtocolCore(head,lpMsg,size,key);
 }
