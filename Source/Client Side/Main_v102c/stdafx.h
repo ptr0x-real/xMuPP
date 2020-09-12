@@ -21,3 +21,6 @@ typedef unsigned __int64 QWORD;
 #pragma comment(lib,"Winmm.lib")
 #pragma comment(lib,"Opengl32.lib")
 #pragma comment(lib,"detours.lib")
+
+#define ALLOC_CONSOLE 1
+#define LOG_PACKETS 1

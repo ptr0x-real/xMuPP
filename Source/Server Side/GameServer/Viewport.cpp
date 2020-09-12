@@ -1597,7 +1597,6 @@ void CViewport::GCViewportSimplePlayerSend(LPOBJ lpObj) // OK
 
 	pMsg.count = 0;
 
-	//PMSG_VIEWPORT_PLAYER info;
 	PMSG_VIEWPORTCREATE_CHANGE info;
 
 	info.NumberH = SET_NUMBERHB(lpObj->Index);

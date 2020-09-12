@@ -396,13 +396,14 @@ void CQuest::GCQuestInfoSend(int aIndex) // OK
 
 	PMSG_QUEST_INFO_SEND pMsg;
 
-	pMsg.header.set(0xA0,sizeof(pMsg));
+	int packet_quest_size = this->m_count / 4 + 5;
+	pMsg.header.set(0xA0, packet_quest_size);
 
-	pMsg.count = MAX_QUEST_LIST;
+	pMsg.count = this->m_count;
 	
 	memcpy(pMsg.QuestInfo,lpObj->Quest,sizeof(pMsg.QuestInfo));
 
-	DataSend(aIndex,(BYTE*)&pMsg,pMsg.header.size);
+	DataSend(aIndex,(BYTE*)&pMsg, packet_quest_size);
 
 	lpObj->SendQuestInfo = 1;
 }

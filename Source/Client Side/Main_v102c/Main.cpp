@@ -19,6 +19,7 @@
 
 // Common
 #include "Util/CCRC32.H"
+#include <atltime.h>
 
 HINSTANCE hins;
 
@@ -29,6 +30,7 @@ extern "C" _declspec(dllexport) void EntryProc() // OK
 		ExitProcess(0);
 	}
 
+#if (ALLOC_CONSOLE == 1)
 	/*
 		Debug purpose only.
 	*/
@@ -38,18 +40,7 @@ extern "C" _declspec(dllexport) void EntryProc() // OK
 		SetConsoleTitle("Debug Console");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 	}
-
-	//SetByte(0x005E5200, 0xEB); // Crack (mu.exe)
-	//SetByte(0x005E551A, 0xEB); // Crack (GameGuard)
-	//SetByte(0x005E5563, 0xE9); // Crack (GameGuard)
-	//SetByte(0x005E5564, 0x8A); // Crack (GameGuard)
-	//SetByte(0x005E5565, 0x00); // Crack (GameGuard)
-	//SetByte(0x005E5566, 0x00); // Crack (GameGuard)
-	//SetByte(0x005E5567, 0x00); // Crack (GameGuard)
-	//SetByte(0x0060112F, 0xEB); // Crack (ResourceGuard)
-
-	//gPacketManager.LoadEncryptionKey("Data\\Enc1.dat");
-	//gPacketManager.LoadDecryptionKey("Data\\Dec2.dat");
+#endif // (ALLOC_CONSOLE == 1)
 
 	MemoryCpy(0x7A16C2, gProtect.m_MainInfo.IpAddress, sizeof(gProtect.m_MainInfo.IpAddress)); // IpAddress
 
@@ -58,8 +49,6 @@ extern "C" _declspec(dllexport) void EntryProc() // OK
 	SetByte(0x7A283A, (gProtect.m_MainInfo.ClientVersion[3] + 3)); // Version
 	SetByte(0x7A283B, (gProtect.m_MainInfo.ClientVersion[5] + 4)); // Version
 	SetByte(0x7A283C, (gProtect.m_MainInfo.ClientVersion[6] + 5)); // Version
-
-	//SetWord(0x00853430, (gProtect.m_MainInfo.IpAddressPort)); // IpAddressPort
 
 	MemoryCpy(0x7A2840, gProtect.m_MainInfo.ClientSerial, sizeof(gProtect.m_MainInfo.ClientSerial)); // ClientSerial
 
