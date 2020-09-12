@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <stdio.h>
+#include <atltime.h>
 
 #include "Protocol.h"
 #include "Common.h"
@@ -16,6 +17,7 @@ using namespace std;
 
 BOOL ProtocolCoreEx(BYTE head,BYTE* lpMsg,int size,int key) // OK
 {
+#if (LOG_PACKETS == 1)
 	int packet_type = lpMsg[0];
 	int packet_subhead = -1;
 
@@ -27,7 +29,27 @@ BOOL ProtocolCoreEx(BYTE head,BYTE* lpMsg,int size,int key) // OK
 	{
 		packet_subhead = lpMsg[4];
 	}
-	printf("Received (%d)b. Type/Head/Sub: 0x%X/0x%X/0x%X.\n", size, packet_type, head, packet_subhead);
+
+	char output_msg[96];
+
+	sprintf(output_msg, "Received (%d)b. Type/Head/Sub: 0x%X/0x%X/0x%X.\n", size, packet_type, head, packet_subhead);
+
+	printf(output_msg);
+
+	FILE* fs;
+	char packet_fname[100];
+	CTime timenow = CTime::GetCurrentTime();	
+
+	sprintf(packet_fname, "recvd_packets/T(0x%X) H(0x%X) SH(0x%X) L(%db) TS(%s).bin", packet_type, head, packet_subhead, size, (LPCTSTR)timenow.Format(_T("%d-%m-%y--%H-%M-%S")));
+
+	fopen_s(&fs, packet_fname, "wb");
+
+	if (fs != NULL)
+	{
+		fwrite(lpMsg, size, 1, fs);
+		fclose(fs);
+	}
+#endif // (LOG_PACKETS == 1)
 
 	return ProtocolCore(head,lpMsg,size,key);
 }
