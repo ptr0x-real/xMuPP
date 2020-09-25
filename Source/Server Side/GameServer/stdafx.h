@@ -15,7 +15,7 @@
 #endif
 
 #ifndef GAMESERVER_UPDATE
-#define GAMESERVER_UPDATE 803
+#define GAMESERVER_UPDATE 200
 #endif
 
 #ifndef GAMESERVER_LANGUAGE
