@@ -817,6 +817,38 @@ struct PMSG_CHARACTER_INFO_SEND
 };
 #pragma pack(pop)
 
+struct PMSG_CHARMAPJOINRESULT
+{
+	PSBMSG_HEAD h;	// C3:F3:03
+	BYTE MapX;	// 4
+	BYTE MapY;	// 5
+	BYTE MapNumber;	// 6
+	BYTE Dir;	// 7
+	DWORD Exp;	// 8
+	DWORD NextExp;	// C
+	WORD LevelUpPoint;	// 10
+	WORD Str;	// 12
+	WORD Dex;	// 14
+	WORD Vit;	// 16
+	WORD Energy;	// 18
+	WORD Life;	// 1A
+	WORD MaxLife;	// 1C
+	WORD Mana;	// 1E
+	WORD MaxMana;	// 20
+	WORD wShield;	// 22
+	WORD wMaxShield;	// 24
+	WORD BP;	// 26
+	WORD MaxBP;	// 28
+	int Money;	// 2C
+	BYTE PkLevel;	// 30
+	BYTE CtlCode;	// 31
+	short AddPoint;	// 32
+	short MaxAddPoint;	// 34
+	WORD Leadership;	// 36
+	WORD wMinusPoint;	// 38
+	WORD wMaxMinusPoint;	// 3A
+};
+
 struct PMSG_CHARACTER_REGEN_SEND
 {
 	PSBMSG_HEAD header; // C3:F3:04

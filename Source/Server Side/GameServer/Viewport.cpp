@@ -743,7 +743,8 @@ void CViewport::GCViewportMonsterSend(int aIndex) // OK
 
 	pMsg.count = 0;
 
-	PMSG_VIEWPORT_MONSTER info;
+	//PMSG_VIEWPORT_MONSTER info;
+	PMSG_MONSTER_VIEWPORTCREATE info;
 
 	for(int n=0;n < MAX_VIEWPORT;n++)
 	{
@@ -769,21 +770,60 @@ void CViewport::GCViewportMonsterSend(int aIndex) // OK
 			continue;
 		}
 
-		info.index[0] = SET_NUMBERHB(lpTarget->Index);
-		info.index[1] = SET_NUMBERLB(lpTarget->Index);
+		/*
+		
+		pMonsterViewportCreate.NumberH = SET_NUMBERH(lpObj->m_Index);
+		pMonsterViewportCreate.NumberL = SET_NUMBERL(lpObj->m_Index);
 
-		if(lpTarget->State == OBJECT_CREATE)
+		if(lpObj->m_State == 1 && lpObj->Teleport == 0)
 		{
-			info.index[0] |= 0x80;
-
-			if(lpTarget->Teleport != 0)
-			{
-				info.index[0] |= 0x40;
-			}
+			pMonsterViewportCreate.NumberH |= 0x80;
+			pMonsterViewportCreate.NumberH |= 0x40;
 		}
 
-		info.type[0] = SET_NUMBERHB(lpTarget->Class);
-		info.type[1] = SET_NUMBERLB(lpTarget->Class);
+		pMonsterViewportCreate.Type_HI = SET_NUMBERH(lpObj->Class);
+		pMonsterViewportCreate.Type_LO = SET_NUMBERL(lpObj->Class);
+
+		pMonsterViewportCreate.ViewState = lpObj->m_ViewSkillState;
+		pMonsterViewportCreate.X = lpObj->X;
+		pMonsterViewportCreate.Y = lpObj->Y;
+		pMonsterViewportCreate.TX = lpObj->TX;
+		pMonsterViewportCreate.TY = lpObj->TY;
+
+		pMonsterViewportCreate.Path = lpObj->Dir << 4;
+
+		memcpy(&sendBuf[lOfs],&pMonsterViewportCreate,sizeof(pMonsterViewportCreate));
+		lOfs += sizeof(pMonsterViewportCreate);
+		moncount += 1;
+
+		*/
+
+		//info.index[0] = SET_NUMBERHB(lpTarget->Index);
+		//info.index[1] = SET_NUMBERLB(lpTarget->Index);
+		info.NumberH = SET_NUMBERHB(lpTarget->Index);
+		info.NumberL = SET_NUMBERLB(lpTarget->Index);
+
+		//if(lpTarget->State == OBJECT_CREATE)
+		//{
+		//	info.index[0] |= 0x80;
+
+		//	if(lpTarget->Teleport != 0)
+		//	{
+		//		info.index[0] |= 0x40;
+		//	}
+		//}
+
+		if (lpTarget->State == 1 && lpTarget->Teleport == 0)
+		{
+			info.NumberH |= 0x80;
+			info.NumberH |= 0x40;
+		}
+
+		//info.type[0] = SET_NUMBERHB(lpTarget->Class);
+		//info.type[1] = SET_NUMBERLB(lpTarget->Class);
+
+		info.Type_HI = SET_NUMBERHB(lpTarget->Class);
+		info.Type_LO = SET_NUMBERLB(lpTarget->Class);
 
 		#if(GAMESERVER_TYPE==1)
 
@@ -804,32 +844,21 @@ void CViewport::GCViewportMonsterSend(int aIndex) // OK
 
 		#endif
 
-		info.x = (BYTE)lpTarget->X;
-		info.y = (BYTE)lpTarget->Y;
+		//info.x = (BYTE)lpTarget->X;
+		//info.y = (BYTE)lpTarget->Y;
 
-		info.tx = (BYTE)lpTarget->TX;
-		info.ty = (BYTE)lpTarget->TY;
+		//info.tx = (BYTE)lpTarget->TX;
+		//info.ty = (BYTE)lpTarget->TY;
 
-		info.DirAndPkLevel = (lpTarget->Dir*16) | (lpTarget->PKLevel & 0x0F);
+		//info.DirAndPkLevel = (lpTarget->Dir*16) | (lpTarget->PKLevel & 0x0F);
 
-		#if(GAMESERVER_UPDATE>=701)
+		info.ViewState = lpTarget->ViewState;
+		info.X = lpTarget->X;
+		info.Y = lpTarget->Y;
+		info.TX = lpTarget->TX;
+		info.TY = lpTarget->TY;
 
-		info.attribute = lpTarget->ElementalAttribute;
-
-		info.level[0] = SET_NUMBERHB(lpTarget->Level);
-		info.level[1] = SET_NUMBERLB(lpTarget->Level);
-
-		info.MaxHP[0] = SET_NUMBERHB(SET_NUMBERHW((lpTarget->MaxLife+lpTarget->AddLife)));
-		info.MaxHP[1] = SET_NUMBERHB(SET_NUMBERLW((lpTarget->MaxLife+lpTarget->AddLife)));
-		info.MaxHP[2] = SET_NUMBERLB(SET_NUMBERHW((lpTarget->MaxLife+lpTarget->AddLife)));
-		info.MaxHP[3] = SET_NUMBERLB(SET_NUMBERLW((lpTarget->MaxLife+lpTarget->AddLife)));
-
-		info.CurHP[0] = SET_NUMBERHB(SET_NUMBERHW((lpTarget->Life)));
-		info.CurHP[1] = SET_NUMBERHB(SET_NUMBERLW((lpTarget->Life)));
-		info.CurHP[2] = SET_NUMBERLB(SET_NUMBERHW((lpTarget->Life)));
-		info.CurHP[3] = SET_NUMBERLB(SET_NUMBERLW((lpTarget->Life)));
-
-		#endif
+		info.Path = lpTarget->Dir << 4;
 
 		#if(GAMESERVER_TYPE==1)
 
@@ -861,7 +890,7 @@ void CViewport::GCViewportMonsterSend(int aIndex) // OK
 
 		int InfoSize = sizeof(info);
 
-		info.count = gEffectManager.GenerateEffectList(lpTarget,&send[size],&InfoSize);
+		//info.count = gEffectManager.GenerateEffectList(lpTarget,&send[size],&InfoSize);
 
 		memcpy(&send[size],&info,sizeof(info));
 		size += InfoSize;

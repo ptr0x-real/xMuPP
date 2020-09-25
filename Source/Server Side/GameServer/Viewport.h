@@ -96,6 +96,20 @@ struct PMSG_VIEWPORT_MONSTER
 	BYTE count;
 };
 
+struct PMSG_MONSTER_VIEWPORTCREATE
+{
+	unsigned char NumberH;
+	unsigned char NumberL;
+	unsigned char Type_HI;
+	unsigned char Type_LO;
+	unsigned long ViewState;
+	unsigned char X;
+	unsigned char Y;
+	unsigned char TX;
+	unsigned char TY;
+	unsigned char Path;
+};
+
 struct PMSG_VIEWPORT_SUMMON
 {
 	BYTE index[2];

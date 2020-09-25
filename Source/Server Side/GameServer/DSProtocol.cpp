@@ -1044,17 +1044,18 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 		}
 	}
 
-	PMSG_CHARACTER_INFO_SEND pMsg;
+	//PMSG_CHARACTER_INFO_SEND pMsg;
+	PMSG_CHARMAPJOINRESULT pMsg;
 
-	pMsg.header.setE(0xF3,0x03,sizeof(pMsg));
+	pMsg.h.setE(0xF3,0x03,sizeof(pMsg));
 
-	pMsg.X = (BYTE)lpObj->X;
-	pMsg.Y = (BYTE)lpObj->Y;
-	pMsg.Map = lpObj->Map;
+	pMsg.MapX = (BYTE)lpObj->X;
+	pMsg.MapY = (BYTE)lpObj->Y;
+	pMsg.MapNumber = lpObj->Map;
 	pMsg.Dir = lpObj->Dir;
 
-	pMsg.Experience = lpObj->Experience;
-	pMsg.NextExperience = lpObj->NextExperience;
+	pMsg.Exp = lpObj->Experience;
+	pMsg.NextExp = lpObj->NextExperience;
 
 	pMsg.LevelUpPoint = lpObj->LevelUpPoint;
 	pMsg.Str = GET_MAX_WORD_VALUE(lpObj->Strength);
@@ -1072,11 +1073,11 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	pMsg.Money = lpObj->Money;
 	pMsg.PkLevel = lpObj->PKLevel;
 	pMsg.CtlCode = lpMsg->CtlCode;
-	pMsg.FruitAddPoint = lpObj->FruitAddPoint;
-	pMsg.MaxFruitAddPoint = gFruit.GetMaxFruitPoint(lpObj);
+	pMsg.AddPoint = lpObj->FruitAddPoint;
+	pMsg.MaxAddPoint = gFruit.GetMaxFruitPoint(lpObj);
 	pMsg.Leadership = GET_MAX_WORD_VALUE(lpObj->Leadership);
-	pMsg.FruitSubPoint = lpObj->FruitSubPoint;
-	pMsg.MaxFruitSubPoint = gFruit.GetMaxFruitPoint(lpObj);
+	pMsg.wMinusPoint = lpObj->FruitSubPoint;
+	pMsg.wMaxMinusPoint = gFruit.GetMaxFruitPoint(lpObj);
 
 	#if(GAMESERVER_EXTRA==1)
 	//pMsg.ViewReset = (DWORD)(lpObj->Reset);
@@ -1096,7 +1097,8 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 	//pMsg.ViewLeadership = lpObj->Leadership;
 	#endif
 
-	DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.header.size);
+	int asidasd = sizeof(pMsg);
+	DataSend(lpObj->Index,(BYTE*)&pMsg,pMsg.h.size);
 
 	GDConnectCharacterSend(lpObj->Index);
 
@@ -1110,91 +1112,13 @@ void DGCharacterInfoRecv(SDHP_CHARACTER_INFO_RECV* lpMsg) // OK
 
 	gQuest.GDQuestKillCountSend(lpObj->Index);
 
-	#if(GAMESERVER_UPDATE>=401)
-
-	gMasterSkillTree.GDMasterSkillTreeSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=501)
-
-	gQuestWorld.GDQuestWorldSend(lpObj->Index);
-
-	gGensSystem.GDGensSystemMemberSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=603)
-
-	gHelper.GDHelperDataSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=501)
-
-	gCashShop.GDCashShopPeriodicItemSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE<=402)
-
 	gPcPoint.GDPcPointPointSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=602)
-
-	gLuckyItem.GDLuckyItemSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=701)
-
-	gPentagramSystem.GDPentagramJewelInfoSend(lpObj->Index,PENTAGRAM_JEWEL_TYPE_INVENTORY);
-
-	gPentagramSystem.GDPentagramJewelInfoSend(lpObj->Index,PENTAGRAM_JEWEL_TYPE_WAREHOUSE);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=801)
-
-	GDSNSDataSend(lpObj->Index);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=802)
-
-	gPersonalShop.GDPShopItemValueSend(lpObj->Index);
-
-	gEventInventory.GDEventInventorySend(lpObj->Index);
-
-	gMuRummy.GDReqCardInfo(lpObj);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=803)
-
-	gMuunSystem.GDMuunInventorySend(lpObj->Index);
-
-	#endif
 
 	gItemManager.GCItemListSend(lpObj->Index);
 
 	gSkillManager.GCSkillListSend(lpObj,0);
 
 	gQuest.GCQuestInfoSend(lpObj->Index);
-
-	#if(GAMESERVER_UPDATE>=501)
-
-	gCashShop.GCCashShopInitSend(lpObj);
-
-	#endif
-
-	#if(GAMESERVER_UPDATE>=603)
-
-	gHelper.GCHelperStartSend(lpObj->Index,0,0,1);
-
-	#endif
 
 	GCNewGensBattleInfoSend(lpObj);
 
