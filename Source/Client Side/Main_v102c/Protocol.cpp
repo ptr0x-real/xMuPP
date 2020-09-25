@@ -36,7 +36,7 @@ BOOL ProtocolCoreEx(BYTE head,BYTE* lpMsg,int size,int key) // OK
 
 	printf(output_msg);
 
-	FILE* fs;
+	FILE* fs = NULL;
 	char packet_fname[100];
 	CTime timenow = CTime::GetCurrentTime();	
 

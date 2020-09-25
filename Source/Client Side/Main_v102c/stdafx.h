@@ -23,4 +23,4 @@ typedef unsigned __int64 QWORD;
 #pragma comment(lib,"detours.lib")
 
 #define ALLOC_CONSOLE 1
-#define LOG_PACKETS 1
+#define LOG_PACKETS 0
